@@ -42,7 +42,10 @@ module Spec
       end
       
       def autorun # :nodoc:
-        at_exit {exit run unless $!}
+        at_exit {
+          next if $!
+          at_exit {exit run}
+        }
       end
 
       def options # :nodoc:
